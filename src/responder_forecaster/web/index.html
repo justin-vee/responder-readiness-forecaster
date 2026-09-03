@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Synthetic team-level responder readiness forecasting demonstration.">
+  <title>Responder Readiness Forecaster</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="brand-lockup">
+      <div class="brand-mark" aria-hidden="true">RR</div>
+      <div>
+        <p class="eyebrow">Cranberry Township synthetic test case</p>
+        <h1>Responder Readiness Forecaster</h1>
+      </div>
+    </div>
+    <div class="header-status" aria-label="Application status">
+      <span class="status-dot" aria-hidden="true"></span>
+      Local prototype
+    </div>
+  </header>
+
+  <div class="safety-ribbon" role="note">
+    <strong>Synthetic demonstration only.</strong>
+    Do not enter names, medical information, personnel records, or live incident details. All operational changes require authorized human approval.
+  </div>
+
+  <nav class="view-tabs" aria-label="Application views">
+    <button class="view-tab is-active" id="forecast-tab" type="button" aria-pressed="true" aria-controls="forecast-view">
+      Single forecast
+    </button>
+    <button class="view-tab" id="showcase-tab" type="button" aria-pressed="false" aria-controls="showcase-view">
+      Synthetic showcase
+    </button>
+  </nav>
+
+  <main id="main-content">
+    <section id="forecast-view" class="app-view" aria-labelledby="forecast-tab">
+      <div class="workspace-grid">
+        <aside class="scenario-panel" aria-labelledby="scenario-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">Step 1</p>
+              <h2 id="scenario-heading">Describe the team conditions</h2>
+            </div>
+            <button class="text-button" id="reset-button" type="button">Reset</button>
+          </div>
+
+          <form id="scenario-form">
+            <div class="form-section preset-section">
+              <label for="preset-select">Start with a synthetic example</label>
+              <select id="preset-select" name="preset">
+                <option value="">Loading examples…</option>
+              </select>
+              <p class="field-help" id="preset-help">Choose a prepared case, then adjust any team-level value.</p>
+              <button class="text-button preset-copy-button" id="customize-button" type="button" hidden>Make an editable synthetic copy</button>
+              <button class="secondary-button quick-run-button" id="run-preset-button" type="submit">Run this example <span aria-hidden="true">→</span></button>
+            </div>
+
+            <fieldset class="form-section">
+              <legend>Planning context</legend>
+              <label for="department">Team label</label>
+              <input id="department" name="department" type="text" maxlength="120" required>
+
+              <label for="location">Location</label>
+              <input id="location" name="location" type="text" maxlength="160" required>
+
+              <div class="two-column-fields">
+                <div>
+                  <label for="forecast-days">Forecast days</label>
+                  <input id="forecast-days" name="forecast_days" type="number" min="1" max="30" step="1" required>
+                </div>
+                <div>
+                  <label for="as-of">As-of time</label>
+                  <input id="as-of" name="as_of" type="datetime-local" required>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+              <legend>Workload and capacity</legend>
+              <div class="metric-field">
+                <div class="metric-label-row">
+                  <label for="incident-count">Incidents in 72 hours</label>
+                  <output id="incident-count-output" for="incident-count">0</output>
+                </div>
+                <input id="incident-count" name="incident_count_72h" type="range" min="0" max="20" step="1">
+                <small class="metric-help">Total synthetic fire and EMS activity during the last 72 hours.</small>
+              </div>
+
+              <div class="metric-field">
+                <div class="metric-label-row">
+                  <label for="overnight-calls">Overnight calls in 72 hours</label>
+                  <output id="overnight-calls-output" for="overnight-calls">0</output>
+                </div>
+                <input id="overnight-calls" name="overnight_calls_72h" type="range" min="0" max="12" step="1">
+                <small class="metric-help">Calls during normal sleep hours can reduce recovery time.</small>
+              </div>
+
+              <div class="metric-field">
+                <div class="metric-label-row">
+                  <label for="longest-shift">Longest shift</label>
+                  <output id="longest-shift-output" for="longest-shift">0 hours</output>
+                </div>
+                <input id="longest-shift" name="longest_shift_hours" type="range" min="0" max="48" step="0.5">
+                <small class="metric-help">Longest synthetic duty or response period in this case.</small>
+              </div>
+
+              <div class="metric-field">
+                <div class="metric-label-row">
+                  <label for="staffing-ratio">Available staffing</label>
+                  <output id="staffing-ratio-output" for="staffing-ratio">0%</output>
+                </div>
+                <input id="staffing-ratio" name="available_staff_ratio" type="range" min="0" max="100" step="1">
+                <small class="metric-help">Percent of normal team-level staffing available for planning.</small>
+              </div>
+
+              <div class="metric-field">
+                <div class="metric-label-row">
+                  <label for="guard-conflicts">Fictional Guard or Reserve conflicts</label>
+                  <output id="guard-conflicts-output" for="guard-conflicts">0</output>
+                </div>
+                <input id="guard-conflicts" name="guard_reserve_conflicts" type="range" min="0" max="12" step="1">
+                <small class="metric-help">Fictional availability conflicts only—never enter military orders or unit details.</small>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+              <legend>Environment</legend>
+              <label class="toggle-row" for="weather-toggle">
+                <span>
+                  <strong>Include a hypothetical weather alert</strong>
+                  <small>Use demonstration alerts only.</small>
+                </span>
+                <input id="weather-toggle" type="checkbox" role="switch">
+              </label>
+
+              <div id="weather-fields" class="conditional-fields" hidden>
+                <label for="weather-alert">Hypothetical alert</label>
+                <input id="weather-alert" name="active_weather_alert" type="text" maxlength="120" placeholder="Example: Hypothetical Heat Warning">
+                <div class="two-column-fields">
+                  <div>
+                    <label for="alert-issued">Issued</label>
+                    <input id="alert-issued" name="alert_issued_at" type="datetime-local">
+                  </div>
+                  <div>
+                    <label for="alert-expires">Expires</label>
+                    <input id="alert-expires" name="alert_expires_at" type="datetime-local">
+                  </div>
+                </div>
+              </div>
+
+              <label class="toggle-row" for="training-toggle">
+                <span>
+                  <strong>Outdoor training scheduled</strong>
+                  <small>Fictional planning condition.</small>
+                </span>
+                <input id="training-toggle" name="outdoor_training_scheduled" type="checkbox" role="switch">
+              </label>
+            </fieldset>
+
+            <input type="hidden" id="scenario-status" name="scenario_status" value="Synthetic test data; not a statement of current local conditions">
+
+            <div id="form-error" class="inline-alert error-alert" role="alert" tabindex="-1" hidden></div>
+            <div class="form-actions">
+              <p><strong>Local analysis</strong><span>Uses only the values shown above.</span></p>
+              <button class="primary-button" id="run-button" type="submit">
+                <span>Run readiness forecast</span>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="results-panel" id="results-panel" aria-labelledby="results-heading">
+          <div class="panel-heading results-heading-row">
+            <div>
+              <p class="step-label">Step 2</p>
+              <h2 id="results-heading">Review the advisory</h2>
+              <p class="result-context" id="result-context">No case analyzed yet</p>
+            </div>
+            <button class="secondary-button" id="download-button" type="button" hidden>Download JSON</button>
+          </div>
+
+          <div id="result-live-region" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+          <div id="empty-state" class="empty-state">
+            <div class="empty-visual" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h3>Your forecast will appear here</h3>
+            <p>Choose a synthetic example or adjust the team-level conditions, then run the forecast.</p>
+            <ul class="empty-checklist">
+              <li>Clear decision and escalation status</li>
+              <li>Evidence-linked planning options</li>
+              <li>Visible reasoning and safety trace</li>
+            </ul>
+            <div class="quick-start" aria-labelledby="quick-start-heading">
+              <strong id="quick-start-heading">Try a prepared case</strong>
+              <div class="quick-start-grid">
+                <button type="button" data-quick-preset="01_routine_monitoring"><span>Routine</span><small>Monitoring advisory</small></button>
+                <button type="button" data-quick-preset="03_moderate_overnight_pressure"><span>Moderate</span><small>Recovery pressure</small></button>
+                <button type="button" data-quick-preset="10_high_combined_factors"><span>High strain</span><small>Human review</small></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="loading-state" class="loading-state" role="status" aria-live="polite" hidden>
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <h3>Five agents are reviewing the case</h3>
+            <p>Checking evidence, readiness factors, response options, and safety constraints.</p>
+          </div>
+
+          <div id="results-content" hidden>
+            <div id="result-stale" class="inline-alert warning-alert stale-alert" role="status" hidden>
+              <strong>Inputs changed.</strong> This result reflects the previous values. Run the forecast again before using it.
+            </div>
+            <section id="decision-banner" class="decision-banner" aria-labelledby="decision-title">
+              <div>
+                <p class="decision-kicker">Decision</p>
+                <h3 id="decision-title" tabindex="-1"></h3>
+                <p id="decision-reason"></p>
+              </div>
+              <div class="approval-badge" id="approval-badge"></div>
+            </section>
+
+            <div class="summary-grid">
+              <section class="summary-card risk-card" aria-labelledby="risk-heading">
+                <div class="card-heading-row">
+                  <div>
+                    <p class="card-kicker">Readiness signal</p>
+                    <h3 id="risk-heading">Operational strain</h3>
+                  </div>
+                  <span id="strain-pill" class="strain-pill"></span>
+                </div>
+                <div class="risk-display">
+                  <div class="risk-ring" id="risk-ring" aria-label="Risk score">
+                    <span id="risk-score">0</span>
+                    <small>of 9</small>
+                  </div>
+                  <div>
+                    <p class="confidence-value"><strong id="confidence-value">0%</strong> confidence</p>
+                    <p class="fine-print">A transparent demonstration score, not a validated prediction.</p>
+                  </div>
+                </div>
+                <div class="risk-scale" aria-label="Demonstration score bands">
+                  <span><i class="low-dot" aria-hidden="true"></i>Low 0–3</span>
+                  <span><i class="moderate-dot" aria-hidden="true"></i>Moderate 4–6</span>
+                  <span><i class="high-dot" aria-hidden="true"></i>High 7–9</span>
+                </div>
+              </section>
+
+              <section class="summary-card" aria-labelledby="run-heading">
+                <p class="card-kicker">Run details</p>
+                <h3 id="run-heading">Audit snapshot</h3>
+                <dl class="compact-details">
+                  <div><dt>Forecast</dt><dd id="forecast-period"></dd></div>
+                  <div><dt>Evidence</dt><dd id="evidence-count"></dd></div>
+                  <div><dt>Plans searched</dt><dd id="node-count"></dd></div>
+                  <div><dt>Runtime</dt><dd id="latency-value"></dd></div>
+                </dl>
+              </section>
+            </div>
+
+            <section class="content-card" aria-labelledby="factors-heading">
+              <div class="section-title-row">
+                <div>
+                  <p class="card-kicker">Why this result</p>
+                  <h3 id="factors-heading">Contributing factors</h3>
+                </div>
+                <span class="section-note">0–2 points each</span>
+              </div>
+              <div id="factor-chart" class="factor-chart"></div>
+            </section>
+
+            <section class="content-card" aria-labelledby="recommendations-heading">
+              <div class="section-title-row">
+                <div>
+                  <p class="card-kicker">Planning options</p>
+                  <h3 id="recommendations-heading">Recommendations for human review</h3>
+                </div>
+                <span class="human-only-label" id="recommendation-status">Human decision required</span>
+              </div>
+              <div id="recommendation-list" class="recommendation-list"></div>
+            </section>
+
+            <section class="content-card" aria-labelledby="plans-heading">
+              <div class="section-title-row">
+                <div>
+                  <p class="card-kicker">Tree-of-Thought search</p>
+                  <h3 id="plans-heading">Plan comparison</h3>
+                </div>
+                <span id="plan-gap" class="section-note"></span>
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr><th>Plan</th><th>Score</th><th>Coverage</th><th>Safety</th></tr>
+                  </thead>
+                  <tbody id="plan-table-body"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="content-card" aria-labelledby="evidence-heading">
+              <div class="section-title-row">
+                <div>
+                  <p class="card-kicker">Grounding</p>
+                  <h3 id="evidence-heading">Authoritative evidence</h3>
+                </div>
+                <span class="section-note">Open sources to verify live status</span>
+              </div>
+              <div id="evidence-list" class="evidence-list"></div>
+            </section>
+
+            <details class="content-card trace-card">
+              <summary>
+                <span>
+                  <span class="card-kicker">Auditability</span>
+                  <strong>View the five-agent trace</strong>
+                </span>
+                <span aria-hidden="true">+</span>
+              </summary>
+              <ol id="trace-list" class="trace-list"></ol>
+            </details>
+
+            <div class="safety-footer" role="note">
+              <strong>Safety boundary:</strong>
+              <span id="safety-boundary"></span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="showcase-view" class="app-view" aria-labelledby="showcase-tab" hidden>
+      <div class="showcase-intro">
+        <div>
+          <p class="step-label">Synthetic behavior explorer</p>
+          <h2>See how the system behaves across varied conditions</h2>
+          <p>Run all prepared cases to inspect decision coverage, guardrail behavior, and local processing time. This does not measure real-world predictive accuracy.</p>
+        </div>
+        <button id="run-showcase-button" class="primary-button compact-button" type="button">Run all synthetic cases</button>
+      </div>
+
+      <div id="showcase-empty" class="showcase-empty">
+        <div class="showcase-grid-preview" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <h3><span id="showcase-ready-count">Prepared synthetic cases</span> are ready</h3>
+        <p>They cover routine monitoring, moderate and high strain, stale evidence, missing data, and privacy guardrails.</p>
+      </div>
+
+      <div id="showcase-loading" class="loading-state" role="status" aria-live="polite" hidden>
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <h3>Running the scenario library</h3>
+        <p>Each case passes through retrieval, readiness analysis, plan search, and safety review.</p>
+      </div>
+
+      <div id="showcase-results" tabindex="-1" hidden>
+        <div class="showcase-metrics">
+          <article><span>Cases processed</span><strong id="showcase-case-count">0</strong></article>
+          <article><span>Human review</span><strong id="showcase-review-count">0</strong></article>
+          <article><span>Guardrail abstentions</span><strong id="showcase-abstain-count">0</strong></article>
+          <article><span>Mean local runtime</span><strong id="showcase-latency">0 ms</strong></article>
+        </div>
+
+        <div class="showcase-chart-grid">
+          <section class="content-card" aria-labelledby="decision-distribution-heading">
+            <p class="card-kicker">Decision behavior</p>
+            <h3 id="decision-distribution-heading">Decision distribution</h3>
+            <div id="decision-distribution" class="distribution-chart"></div>
+          </section>
+          <section class="content-card" aria-labelledby="strain-distribution-heading">
+            <p class="card-kicker">Readiness signals</p>
+            <h3 id="strain-distribution-heading">Strain distribution</h3>
+            <div id="strain-distribution" class="distribution-chart"></div>
+          </section>
+        </div>
+
+        <section class="content-card" aria-labelledby="showcase-table-heading">
+          <div class="section-title-row">
+            <div>
+              <p class="card-kicker">Case-by-case behavior</p>
+              <h3 id="showcase-table-heading">Synthetic scenario results</h3>
+            </div>
+            <span id="showcase-p95" class="section-note"></span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>Scenario</th><th>Strain</th><th>Score</th><th>Decision</th><th>Runtime</th><th>Open</th></tr>
+              </thead>
+              <tbody id="showcase-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="inline-alert info-alert">
+          <strong>How to interpret this:</strong>
+          The batch demonstrates deterministic software behavior and safety fallbacks. It does not establish field effectiveness, calibration, or health outcomes.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Advisory prototype · Public and synthetic information only · Authorized leaders retain every operational decision</p>
+  </footer>
+
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

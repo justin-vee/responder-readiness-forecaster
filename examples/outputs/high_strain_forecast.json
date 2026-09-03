@@ -1,0 +1,336 @@
+{
+  "run_id": "4acb3cca-631e-4137-a8f0-0288d359b99e",
+  "decision": "HUMAN_REVIEW_REQUIRED",
+  "decision_reason": "Every proposed operational change requires authorized approval. The top plans are separated by 3 points.",
+  "human_review_required": true,
+  "department": "Cranberry Township Volunteer Fire Company synthetic test case",
+  "location": "Cranberry Township, Butler County, Pennsylvania",
+  "scenario_status": "Synthetic test data; not a statement of current local conditions",
+  "forecast_days": 7,
+  "strain": "high",
+  "risk_score": 9,
+  "confidence": 0.9,
+  "risk_components": {
+    "incident_load": 1,
+    "overnight_disruption": 2,
+    "extended_shift": 2,
+    "reduced_staffing": 2,
+    "guard_reserve_availability": 1,
+    "current_weather_alert": 1
+  },
+  "recommendations": [
+    {
+      "id": "request_mutual_aid",
+      "label": "Request authorized review of mutual-aid coverage",
+      "requires_human_approval": true,
+      "support": [
+        "scenario:team_level_inputs",
+        "guidance:cranberry-fire-services"
+      ],
+      "topic_aligned_guidance": [
+        "guidance:cranberry-fire-services"
+      ]
+    },
+    {
+      "id": "protect_recovery_window",
+      "label": "Protect a recovery window before another demanding shift",
+      "requires_human_approval": true,
+      "support": [
+        "scenario:team_level_inputs",
+        "guidance:niosh-fatigue-work"
+      ],
+      "topic_aligned_guidance": [
+        "guidance:niosh-fatigue-work"
+      ]
+    },
+    {
+      "id": "heat_work_rest_cycle",
+      "label": "Use a heat work-rest cycle with water and cooling",
+      "requires_human_approval": true,
+      "support": [
+        "scenario:team_level_inputs",
+        "guidance:niosh-heat-recommendations",
+        "guidance:niosh-fatigue-work"
+      ],
+      "topic_aligned_guidance": [
+        "guidance:niosh-heat-recommendations",
+        "guidance:niosh-fatigue-work"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "nws-alerts-api",
+      "source": "National Weather Service",
+      "title": "API Web Service",
+      "url": "https://www.weather.gov/documentation/services-web-api",
+      "topic": "weather alert warning advisory current expiration",
+      "score": 0.766,
+      "last_reviewed": "2026-03-24",
+      "retrieved_on": "2026-08-26"
+    },
+    {
+      "id": "niosh-heat-recommendations",
+      "source": "CDC/NIOSH",
+      "title": "Workplace Recommendations for Heat Stress",
+      "url": "https://www.cdc.gov/niosh/heat-stress/recommendations/index.html",
+      "topic": "heat hydration cooling work rest cycle weather",
+      "score": 0.693,
+      "last_reviewed": "2026-07-16",
+      "retrieved_on": "2026-08-26"
+    },
+    {
+      "id": "cranberry-fire-services",
+      "source": "Cranberry Township",
+      "title": "Fire and Emergency Services",
+      "url": "https://www.cranberrytownship.org/196/Fire-Emergency-Services",
+      "topic": "staffing coverage fire rescue dispatch readiness",
+      "score": 0.415,
+      "last_reviewed": "2026-08-26",
+      "retrieved_on": "2026-08-26"
+    },
+    {
+      "id": "niosh-fatigue-work",
+      "source": "CDC/NIOSH",
+      "title": "Fatigue and Work",
+      "url": "https://www.cdc.gov/niosh/fatigue/about/index.html",
+      "topic": "fatigue hours heat readiness",
+      "score": 0.579,
+      "last_reviewed": "2026-07-14",
+      "retrieved_on": "2026-08-26"
+    }
+  ],
+  "finalists": [
+    {
+      "node_id": "final-1",
+      "depth": 3,
+      "actions": [
+        "request_mutual_aid",
+        "protect_recovery_window",
+        "heat_work_rest_cycle"
+      ],
+      "score": 93,
+      "score_breakdown": {
+        "coverage_and_safety": 35,
+        "recovery_benefit": 25,
+        "feasibility": 8,
+        "evidence": 15,
+        "privacy_fairness_reversibility": 10
+      },
+      "projected_coverage": 0.9,
+      "evidence_ids": [
+        "nws-alerts-api",
+        "niosh-heat-recommendations",
+        "cranberry-fire-services",
+        "niosh-fatigue-work"
+      ],
+      "hard_failures": []
+    },
+    {
+      "node_id": "final-2",
+      "depth": 3,
+      "actions": [
+        "request_mutual_aid",
+        "move_outdoor_training",
+        "heat_work_rest_cycle"
+      ],
+      "score": 90,
+      "score_breakdown": {
+        "coverage_and_safety": 35,
+        "recovery_benefit": 21,
+        "feasibility": 9,
+        "evidence": 15,
+        "privacy_fairness_reversibility": 10
+      },
+      "projected_coverage": 0.94,
+      "evidence_ids": [
+        "nws-alerts-api",
+        "niosh-heat-recommendations",
+        "cranberry-fire-services",
+        "niosh-fatigue-work"
+      ],
+      "hard_failures": []
+    }
+  ],
+  "rejected_plans": [],
+  "tree_search": {
+    "strategy": "beam_search",
+    "beam_width": 3,
+    "depth_limit": 3,
+    "evaluated_nodes": 26,
+    "finalists": [
+      {
+        "node_id": "final-1",
+        "depth": 3,
+        "actions": [
+          "request_mutual_aid",
+          "protect_recovery_window",
+          "heat_work_rest_cycle"
+        ],
+        "score": 93,
+        "score_breakdown": {
+          "coverage_and_safety": 35,
+          "recovery_benefit": 25,
+          "feasibility": 8,
+          "evidence": 15,
+          "privacy_fairness_reversibility": 10
+        },
+        "projected_coverage": 0.9,
+        "evidence_ids": [
+          "nws-alerts-api",
+          "niosh-heat-recommendations",
+          "cranberry-fire-services",
+          "niosh-fatigue-work"
+        ],
+        "hard_failures": []
+      },
+      {
+        "node_id": "final-2",
+        "depth": 3,
+        "actions": [
+          "request_mutual_aid",
+          "move_outdoor_training",
+          "heat_work_rest_cycle"
+        ],
+        "score": 90,
+        "score_breakdown": {
+          "coverage_and_safety": 35,
+          "recovery_benefit": 21,
+          "feasibility": 9,
+          "evidence": 15,
+          "privacy_fairness_reversibility": 10
+        },
+        "projected_coverage": 0.94,
+        "evidence_ids": [
+          "nws-alerts-api",
+          "niosh-heat-recommendations",
+          "cranberry-fire-services",
+          "niosh-fatigue-work"
+        ],
+        "hard_failures": []
+      }
+    ],
+    "action_effect_notice": "Coverage and recovery effects are synthetic heuristic values for demonstration only."
+  },
+  "escalations": [
+    "closely_scored_plans"
+  ],
+  "metrics": {
+    "citation_coverage": 1.0,
+    "topic_aligned_guidance_coverage": 1.0,
+    "finalist_gap": 3
+  },
+  "latency_ms": 8.68,
+  "trace": [
+    {
+      "agent": "Coordinator Agent",
+      "action": "understand_case",
+      "observation": {
+        "forecast_days": 7,
+        "prior_aggregate_runs": 4
+      }
+    },
+    {
+      "agent": "Evidence Agent",
+      "action": "retrieve_guidance",
+      "observation": {
+        "results": 4,
+        "ids": [
+          "nws-alerts-api",
+          "niosh-heat-recommendations",
+          "cranberry-fire-services",
+          "niosh-fatigue-work"
+        ]
+      }
+    },
+    {
+      "agent": "Readiness Analyst",
+      "action": "calculate_readiness",
+      "observation": {
+        "score": 9,
+        "strain": "high",
+        "confidence": 0.9,
+        "components": {
+          "incident_load": 1,
+          "overnight_disruption": 2,
+          "extended_shift": 2,
+          "reduced_staffing": 2,
+          "guard_reserve_availability": 1,
+          "current_weather_alert": 1
+        }
+      }
+    },
+    {
+      "agent": "Operations Planner",
+      "action": "search_response_plans",
+      "observation": {
+        "strategy": "beam_search",
+        "beam_width": 3,
+        "depth_limit": 3,
+        "evaluated_nodes": 26,
+        "finalists": [
+          {
+            "node_id": "final-1",
+            "depth": 3,
+            "actions": [
+              "request_mutual_aid",
+              "protect_recovery_window",
+              "heat_work_rest_cycle"
+            ],
+            "score": 93,
+            "score_breakdown": {
+              "coverage_and_safety": 35,
+              "recovery_benefit": 25,
+              "feasibility": 8,
+              "evidence": 15,
+              "privacy_fairness_reversibility": 10
+            },
+            "projected_coverage": 0.9,
+            "evidence_ids": [
+              "nws-alerts-api",
+              "niosh-heat-recommendations",
+              "cranberry-fire-services",
+              "niosh-fatigue-work"
+            ],
+            "hard_failures": []
+          },
+          {
+            "node_id": "final-2",
+            "depth": 3,
+            "actions": [
+              "request_mutual_aid",
+              "move_outdoor_training",
+              "heat_work_rest_cycle"
+            ],
+            "score": 90,
+            "score_breakdown": {
+              "coverage_and_safety": 35,
+              "recovery_benefit": 21,
+              "feasibility": 9,
+              "evidence": 15,
+              "privacy_fairness_reversibility": 10
+            },
+            "projected_coverage": 0.94,
+            "evidence_ids": [
+              "nws-alerts-api",
+              "niosh-heat-recommendations",
+              "cranberry-fire-services",
+              "niosh-fatigue-work"
+            ],
+            "hard_failures": []
+          }
+        ],
+        "action_effect_notice": "Coverage and recovery effects are synthetic heuristic values for demonstration only."
+      }
+    },
+    {
+      "agent": "Safety Critic",
+      "action": "safety_check",
+      "observation": {
+        "accepted": 2,
+        "rejected": []
+      }
+    }
+  ],
+  "safety_boundary": "Advisory only. No individual diagnosis, fitness-for-duty judgment, dispatch action, schedule change, or automatic mutual-aid request."
+}

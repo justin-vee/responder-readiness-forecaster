@@ -1,0 +1,12 @@
+{
+  "department": "Cranberry Township Volunteer Fire Company synthetic test case",
+  "location": "Cranberry Township, Butler County, Pennsylvania",
+  "scenario_status": "Synthetic test data",
+  "forecast_days": 7,
+  "incident_count_72h": 4,
+  "overnight_calls_72h": 2,
+  "longest_shift_hours": 12,
+  "guard_reserve_conflicts": 1,
+  "expected_strain": null,
+  "expected_decision": "ABSTAIN"
+}

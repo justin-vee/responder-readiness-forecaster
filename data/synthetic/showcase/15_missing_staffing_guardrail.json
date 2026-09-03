@@ -1,0 +1,16 @@
+{
+  "department": "Synthetic volunteer fire and EMS planning team",
+  "location": "Cranberry Township, Butler County, Pennsylvania",
+  "scenario_status": "Synthetic test data; not a statement of current local conditions",
+  "forecast_days": 7,
+  "incident_count_72h": 5,
+  "overnight_calls_72h": 2,
+  "longest_shift_hours": 12,
+  "guard_reserve_conflicts": 1,
+  "active_weather_alert": "",
+  "alert_issued_at": null,
+  "alert_expires_at": null,
+  "as_of": "2026-08-26T12:00:00-04:00",
+  "outdoor_training_scheduled": false,
+  "contains_private_person_data": false
+}

@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - run: PYTHONWARNINGS=error::ResourceWarning python -m unittest discover -s tests -v
+      - run: responder-forecaster-gui --help
+      - run: responder-forecaster --evaluate --output examples/outputs/evaluation_report.json
+      - run: python -m pip wheel . --no-deps -w dist
+      - run: python -m pip install --force-reinstall dist/*.whl
+      - run: responder-forecaster --evaluate --output /tmp/wheel-evaluation.json
+      - run: responder-forecaster-gui --help
+      - name: Smoke-test installed GUI resources
+        run: |
+          cd /tmp
+          python -c "from pathlib import Path; from responder_forecaster.gui import WEB_ROOT, build_server, load_showcase_presets; assert (WEB_ROOT / 'index.html').is_file(); assert len(load_showcase_presets()) == 16; server = build_server(port=0, memory_path=Path('/tmp/wheel-gui.sqlite3')); server.server_close()"

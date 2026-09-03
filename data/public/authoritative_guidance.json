@@ -1,0 +1,72 @@
+[
+  {
+    "id": "niosh-fatigue-work",
+    "source": "CDC/NIOSH",
+    "title": "Fatigue and Work",
+    "url": "https://www.cdc.gov/niosh/fatigue/about/index.html",
+    "topic": "fatigue hours heat readiness",
+    "last_reviewed": "2026-07-14",
+    "retrieved_on": "2026-08-26",
+    "text": "Work-related fatigue can be connected to night work, extended hours, demanding tasks, stress, and heat. Fatigue can reduce attention, reaction time, short-term memory, and judgment. Prevention should address the sources of fatigue."
+  },
+  {
+    "id": "niosh-firefighter-safety",
+    "source": "CDC/NIOSH",
+    "title": "Firefighter Safety and Health",
+    "url": "https://www.cdc.gov/niosh/firefighters/about/index.html",
+    "topic": "firefighter fatigue heat hours safety",
+    "last_reviewed": "2024-11-04",
+    "retrieved_on": "2026-08-26",
+    "text": "Firefighter hazards include heat stress and risks associated with shift work and disrupted sleep. These hazards support team-level monitoring but do not establish that an individual is impaired."
+  },
+  {
+    "id": "niosh-heat-recommendations",
+    "source": "CDC/NIOSH",
+    "title": "Workplace Recommendations for Heat Stress",
+    "url": "https://www.cdc.gov/niosh/heat-stress/recommendations/index.html",
+    "topic": "heat hydration cooling work rest cycle weather",
+    "last_reviewed": "2026-07-16",
+    "retrieved_on": "2026-08-26",
+    "text": "Heat controls can include hydration, acclimatization, monitoring, administrative controls, and adjusted work-rest periods. Protective equipment and physical exertion add to heat load."
+  },
+  {
+    "id": "nws-alerts-api",
+    "source": "National Weather Service",
+    "title": "API Web Service",
+    "url": "https://www.weather.gov/documentation/services-web-api",
+    "topic": "weather alert warning advisory current expiration",
+    "last_reviewed": "2026-03-24",
+    "retrieved_on": "2026-08-26",
+    "text": "The National Weather Service API provides official alert data with location and timing information. Decision support should preserve issued and expiration times and should reject products that are not current."
+  },
+  {
+    "id": "usfa-responder-wellness",
+    "source": "U.S. Fire Administration",
+    "title": "Emergency Responder Health, Safety and Wellness",
+    "url": "https://www.usfa.fema.gov/a-z/health-safety-wellness/index.html",
+    "topic": "firefighter fatigue heat sleep recovery readiness",
+    "last_reviewed": "2026-07-13",
+    "retrieved_on": "2026-08-26",
+    "text": "Responder health and safety resources address sleep deprivation, rehabilitation, heat, fatigue, and volunteer firefighter well-being through risk-management approaches."
+  },
+  {
+    "id": "dha-total-force-fitness",
+    "source": "Defense Health Agency",
+    "title": "Warfighter Performance Optimization–Total Force Fitness",
+    "url": "https://www.health.mil/Military-Health-Topics/Health-Readiness/Warfighter-Performance-Optimization",
+    "topic": "guard reserve readiness recovery duty performance",
+    "last_reviewed": "2026-08-18",
+    "retrieved_on": "2026-08-26",
+    "text": "Total Force Fitness describes connected health, performance, and readiness factors for the total force."
+  },
+  {
+    "id": "cranberry-fire-services",
+    "source": "Cranberry Township",
+    "title": "Fire and Emergency Services",
+    "url": "https://www.cranberrytownship.org/196/Fire-Emergency-Services",
+    "topic": "staffing coverage fire rescue dispatch readiness",
+    "last_reviewed": "2026-08-26",
+    "retrieved_on": "2026-08-26",
+    "text": "The Cranberry Township Volunteer Fire Company provides fire and rescue services. The township lists Haine and Park stations and a Public Safety Training Facility. Butler County 911 dispatches the company."
+  }
+]
